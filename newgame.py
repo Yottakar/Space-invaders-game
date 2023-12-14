@@ -2,6 +2,7 @@ import pygame
 import random
 import math
 from pygame import mixer
+
 pygame.init()
 screen= pygame.display.set_mode((800,600))
 background=pygame.image.load('spacer.png')
@@ -20,12 +21,15 @@ enemyy=[]
 enemychangex=[]
 enemychangey=[]
 numofenemy=6
+
 for i in range(numofenemy):
     enemyimg.append(pygame.image.load('ghoster.png'))
     enemyx.append(random.randint(0,735))
     enemyy.append(random.randint(50,150))
     enemychangex.append(4)
     enemychangey.append(40)
+
+
 bulletimg=pygame.image.load('bullet.png')
 bulletx=0
 bullety=480
@@ -36,6 +40,7 @@ font=pygame.font.Font('freesansbold.ttf',32)
 overfont=pygame.font.Font('freesansbold.ttf',64)
 textx= 10
 texty=10
+
 def showscore(x,y):
     score=font.render("Score:"+str(score_value),True, (255,255,255))
     screen.blit(score,(x,y))
@@ -47,16 +52,20 @@ def fire_bullet(x,y):
     global bulletstate
     bulletstate="fire"
     screen.blit(bulletimg,(x+16,y+10))
+
 def player(x,y):
     screen.blit(playerimg,(x,y))
+
 def enemy(x,y,i):
     screen.blit(enemyimg[i],(x,y))
+
 def collision(enemyx,enemyy,bulletx,bullety):
     distance=math.sqrt((math.pow(enemyx-bulletx,2))+(math.pow(enemyy-bullety,2)))
-    if distance < 27:
+    if distance < 30:
         return True
     else:
         return False
+    
 running= True
 while running:
     screen.fill((44,44,62))
@@ -108,7 +117,7 @@ while running:
             bullety=480
             bulletstate="ready"
             score_value+=1
-            print(score_value)
+            
             enemyx[i]=random.randint(0,735)
             enemyy[i]=random.randint(50,150)
         enemy(enemyx[i],enemyy[i],i)
